@@ -23,8 +23,10 @@ class GameClass:
 		#Holds the path to a music file to be played when people scroll
 		#	over the game in the arcade.  MUST be an .mp3
 		self.music = None
+		#Holds the file that stores the game's score.  MUST be called "Ratings.txt"
+		self.ratings = None
 		#Holds the number of thumbs up people have given the game.
-		self.ratings = 0
+		self.score = 0
 
 	def SetTitle(self, titlePath):
 		file = open(titlePath, 'r')
@@ -46,8 +48,19 @@ class GameClass:
 	def SetMusic(self, musicPath):
 		self.music = musicPath
 
-	def AddRating(self, score):
-		self.ratings = self.ratings + 1
+	def SetRatingsNScore(self, ratingPath):
+		self.ratings = ratingPath
+
+		file = open(ratingPath, 'r')
+		self.score = file.read()
+		file.close()
+
+	def IncreaseScore(self):
+		self.score = self.score + 1
+
+		file = open(self.ratings, 'w')
+		file.write(self.score)
+		file.close()
 
 	def Title(self):
 		return self.title
@@ -59,6 +72,7 @@ class GameListClass:
 	"Generates and stores a list of all the games in the system"
 
 	def __init__(self):
+		self.gamesList = []
 		self.gamesList = self.GenerateGameList()
 
 
@@ -96,6 +110,9 @@ class GameListClass:
 				if file.endswith(".mp3"):
 					game.SetMusic(path)
 					add = True
+				if file == "Ratings.txt":
+					game.SetRatingsNScore(path)
+					add = True
 
 			for g in self.gamesList:
 				if game.Title == g.Title:
@@ -122,4 +139,6 @@ class GameListClass:
 			print("Game's info path is: %s" %game.info)
 			print("Game's control path is: %s" %game.controls)
 			print("Game's music path is: %s" %game.music)
-			print("Game's rating is: %s" %game.ratings)
+			print("Game's rating path is: %s" %game.ratings)
+			print("Game's score is: %s" %game.score)
+			print()

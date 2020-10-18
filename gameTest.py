@@ -1,9 +1,11 @@
 #This is for testing the GameClass
 
-import gameClass.py
+import gameClass as gc
 
-gl = GameListClass()
+gl = gc.GameListClass()
 
 gl.UpdateList()
 
 gl._PrintGames()
+
+input()
