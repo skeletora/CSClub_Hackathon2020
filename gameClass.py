@@ -75,6 +75,7 @@ class GameListClass:
 		self.gamesList = []
 		self.gamesList = self.GenerateGameList()
 
+		self.currPos = 0
 
 	def GenerateGameList(self):
 		folders = os.listdir(STARTPATH)
@@ -130,6 +131,21 @@ class GameListClass:
 
 	def UpdateList(self):
 		self.gamesList = self.GenerateGameList()
+
+	def IncrListPos(self):
+		self.currPos = self.currPos + 1
+
+		if self.currPos >= self.gamesList.size():
+			self.currPos = 0
+
+	def DecrListPos(self):
+		self.currPos = self.currPos - 1
+
+		if self.currPos < 0:
+			self.currPos = self.gamesList.size() - 1
+
+	def GetCurrGame(self):
+		return self.gamesList[self.currPos]
 
 	def _PrintGames(self):
 		for game in self.gamesList:
