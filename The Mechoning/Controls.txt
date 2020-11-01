@@ -1,0 +1,5 @@
+WASD - move
+Space Bar - jump
+Left Mouse - attack
+E - interact and talk
+P or F - pause the game
